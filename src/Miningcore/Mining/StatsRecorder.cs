@@ -173,17 +173,13 @@ namespace Miningcore.Mining
                     }
                 }
                 else
-                {
-                    var poolHashesAccumulated = 0;
-                    var poolHashesCountAccumulated = 0;
-                    var poolHashrate = 0;
-
+                {                    
                     // update
                     pool.PoolStats.ConnectedMiners = 0;
                     pool.PoolStats.PoolHashrate = 0;
                     pool.PoolStats.SharesPerSecond = 0;
 
-                    messageBus.NotifyHashrateUpdated(pool.Config.Id, poolHashrate);
+                    messageBus.NotifyHashrateUpdated(pool.Config.Id, 0);
                 }                
 
                 // persist
