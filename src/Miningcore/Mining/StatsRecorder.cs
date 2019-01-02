@@ -174,23 +174,13 @@ namespace Miningcore.Mining
                 }
                 else
                 {
-                    // calculate pool stats
-                    var windowActual = (result.Max(x => x.LastShare) - result.Min(x => x.FirstShare)).TotalSeconds;
+                    // update
+                    pool.PoolStats.ConnectedMiners = 0;
+                    pool.PoolStats.PoolHashrate = 0;
+                    pool.PoolStats.SharesPerSecond = 0;
 
-                    if (windowActual >= MinHashrateCalculationWindow)
-                    {
-                        var poolHashesAccumulated = result.Sum(x => x.Sum);
-                        var poolHashesCountAccumulated = result.Sum(x => x.Count);
-                        var poolHashrate = pool.HashrateFromShares(poolHashesAccumulated, windowActual) * HashrateBoostFactor;
-
-                        // update
-                        pool.PoolStats.ConnectedMiners = 0;
-                        pool.PoolStats.PoolHashrate = 0;
-                        pool.PoolStats.SharesPerSecond = 0;
-
-                        messageBus.NotifyHashrateUpdated(pool.Config.Id, poolHashrate);
-                    }
-                }
+                    messageBus.NotifyHashrateUpdated(pool.Config.Id, poolHashrate);
+                }                
 
                 // persist
                 await cf.RunTx(async (con, tx) =>
