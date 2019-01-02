@@ -174,9 +174,9 @@ namespace Miningcore.Mining
                 }
                 else
                 {
-                    var poolHashesAccumulated = result.Sum(x => x.Sum);
-                    var poolHashesCountAccumulated = result.Sum(x => x.Count);
-                    var poolHashrate = pool.HashrateFromShares(poolHashesAccumulated, windowActual) * HashrateBoostFactor;
+                    var poolHashesAccumulated = 0;
+                    var poolHashesCountAccumulated = 0;
+                    var poolHashrate = 0;
 
                     // update
                     pool.PoolStats.ConnectedMiners = 0;
